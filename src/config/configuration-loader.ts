@@ -9,7 +9,7 @@ function getConfigPath(): string {
   try {
     return 'config.yaml';
   } catch (e) {
-    return 'config.yaml';
+    return e;
   }
 }
 
