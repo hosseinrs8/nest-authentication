@@ -1,0 +1,38 @@
+environment: "development"
+serviceName: "meta-state-server"
+
+webServer:
+  host: '127.0.0.1'
+  port: 3000
+  tls:
+    caPath: ''
+    certPath: ''
+    keyPath: ''
+
+database:
+  host: '127.0.0.1'
+  port: 5432
+  database: ''
+  username: ''
+  password: ''
+
+registration:
+  requiredEmail: True
+  requiredPhone: True
+  autoVerifyEmail: True
+  autoVerifyPhone: True
+  minimumAcceptablePasswordScore: 0
+
+authentication:
+  jwt:
+    privateKeyPath: ""
+    publicKeyPath: ""
+    expiresIn: ""
+    algorithm: ""
+  allowSuspiciousTokens: True
+  notifySuspiciousTokens: True
+
+crypto:
+  encryptionDefaultKeyPath: ""
+  encryptionDefaultAlgorithm: ""
+  hashDefaultAlgorithm: ""

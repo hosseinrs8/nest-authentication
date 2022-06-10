@@ -1,8 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import {
+  bootWebServer,
+  initApp,
+  setupSwaggerDoc,
+} from './config/web-server-setup';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const app = await initApp();
+  app.setGlobalPrefix('/api/v1');
+  setupSwaggerDoc(app);
+  bootWebServer(app);
 }
 bootstrap();
