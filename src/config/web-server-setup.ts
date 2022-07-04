@@ -30,6 +30,7 @@ export async function initApp(): Promise<INestApplication> {
   }
   return NestFactory.create(AppModule);
 }
+
 export async function setupSwaggerDoc(app: INestApplication) {
   const config = new DocumentBuilder()
     .setTitle('Meta-State')
@@ -54,5 +55,7 @@ async function getWebServerConfigs(): Promise<WebServerConfig> | undefined {
     ConfigModule.forRoot(configModuleSetups),
   );
   const configService: ConfigService = configApp.get(ConfigService);
-  return configService.get<WebServerConfig>('webServer');
+  const config = configService.get<WebServerConfig>('webServer');
+  await configApp.close();
+  return config;
 }
