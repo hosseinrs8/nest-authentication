@@ -36,3 +36,9 @@ crypto:
   encryptionDefaultKeyPath: ""
   encryptionDefaultAlgorithm: ""
   hashDefaultAlgorithm: ""
+
+nats:
+  servers:
+    - '0.0.0.0:4222'
+  username: ''
+  password: ''
