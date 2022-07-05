@@ -43,7 +43,7 @@ export class UserService {
   }
 
   @UseRequestContext()
-  findAll(limit: number | null = 15, offset = 0) {
+  findAll(limit: number | null = 15, offset = 0): Promise<Array<User>> {
     return this.userRepository.findAll({ limit, offset });
   }
 
@@ -118,7 +118,7 @@ export class UserService {
   }
 
   @UseRequestContext()
-  async checkInfoToBeUnique(phone: string, email: string) {
+  async checkInfoToBeUnique(phone: string, email: string): Promise<void> {
     const result = await this.findAdvance({ phone });
     if (result.length > 0) {
       throw new BadRequestException('uniqueness violation in phone');
