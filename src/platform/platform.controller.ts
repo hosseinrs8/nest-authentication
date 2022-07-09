@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { PlatformService } from './platform.service';
-import { CreatePlatformDto } from './dto/create-platform.dto';
 import { PlatformFindAdvanceDto } from './dto/platform-find-advance.dto';
 import { Platform } from './entities/platform.entity';
 import { Report } from './entities/report.entity';
@@ -12,11 +11,6 @@ export class PlatformController {
   private pageSize = 10;
 
   constructor(private readonly platformService: PlatformService) {}
-
-  @Post()
-  create(@Body() dto: CreatePlatformDto): Promise<Platform> {
-    return this.platformService.create(dto);
-  }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Platform> {

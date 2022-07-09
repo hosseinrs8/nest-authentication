@@ -5,6 +5,7 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { CreatePlatformDto } from './dto/create-platform.dto';
 import { FilterQuery, MikroORM, UseRequestContext } from '@mikro-orm/core';
 import { Report } from './entities/report.entity';
+import { UpdatePlatformDto } from './dto/update-platform.dto';
 
 @Injectable()
 export class PlatformService {
@@ -20,7 +21,21 @@ export class PlatformService {
     platform.name = dto.name;
     await this.platformRepository.persistAndFlush(platform);
     return platform;
-  }
+  } // sysAdmin
+
+  @UseRequestContext()
+  async update(id: number, dto: UpdatePlatformDto): Promise<Platform> {
+    const platform = await this.findOne(id);
+    platform.name = dto.name || platform.name;
+    await this.platformRepository.persistAndFlush(platform);
+    return platform;
+  } // sysAdmin
+
+  @UseRequestContext()
+  async remove(id: number): Promise<void> {
+    const platform = await this.findOne(id);
+    return this.platformRepository.removeAndFlush(platform);
+  } // sysAdmin
 
   @UseRequestContext()
   findOne(id: number) {
