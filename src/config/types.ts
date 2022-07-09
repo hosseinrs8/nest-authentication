@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsDefined,
   IsEnum,
@@ -122,6 +123,20 @@ export class CryptoConfig {
   hashDefaultAlgorithm: string;
 }
 
+export class NatsConfig {
+  @IsNotEmpty()
+  @IsArray()
+  servers: Array<string>;
+
+  @IsOptional()
+  @IsString()
+  username?: string;
+
+  @IsOptional()
+  @IsString()
+  password?: string;
+}
+
 export class Configs {
   @IsNotEmpty()
   @IsString()
@@ -144,4 +159,7 @@ export class Configs {
 
   @ValidateNested()
   crypto: CryptoConfig;
+
+  @ValidateNested()
+  nats: NatsConfig;
 }
