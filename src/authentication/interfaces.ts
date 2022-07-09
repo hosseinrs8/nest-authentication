@@ -9,7 +9,6 @@ export type AuthorizedRequest = HttpRequest & {
   user: {
     id: number;
     tokenId: number;
-    roleId?: number;
   };
 };
 

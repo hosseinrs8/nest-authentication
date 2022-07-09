@@ -2,12 +2,12 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
   Post,
   Query,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -36,9 +36,7 @@ export class UserController {
     @AuthenticatedUserId() userId: number,
     @Body() dto: UpdateUserDto,
   ): Promise<User> {
-    if (+id !== userId) {
-      throw new UnauthorizedException();
-    }
+    if (+id !== userId) throw new ForbiddenException();
     return this.userService.update(+id, dto);
   }
 
@@ -66,9 +64,7 @@ export class UserController {
     @AuthenticatedUserId() userId: number,
     @Body() dto: UpdatePasswordDto,
   ): Promise<User> {
-    if (+id !== userId) {
-      throw new UnauthorizedException();
-    }
+    if (+id !== userId) throw new ForbiddenException();
     return this.userService.updatePassword(+id, dto);
   }
 
@@ -81,7 +77,11 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
+  remove(
+    @Param('id') id: string,
+    @AuthenticatedUserId() userId: number,
+  ): Promise<void> {
+    if (userId !== +id) throw new ForbiddenException();
     return this.userService.remove(+id);
   }
 }

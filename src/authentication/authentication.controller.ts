@@ -5,6 +5,7 @@ import {
   Headers,
   UseGuards,
   Get,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthenticationService } from './authentication.service';
@@ -61,7 +62,7 @@ export class AuthenticationController {
         if (dto.mode !== AuthenticationMode.safeMode) return res;
         return { ...res, refreshToken };
       });
-    }
+    } else throw new NotFoundException();
   }
 
   @ApiBearerAuth()
